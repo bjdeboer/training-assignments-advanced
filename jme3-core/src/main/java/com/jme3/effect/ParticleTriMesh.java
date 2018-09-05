@@ -35,6 +35,7 @@ import com.jme3.math.FastMath;
 import com.jme3.math.Matrix3f;
 import com.jme3.math.Vector3f;
 import com.jme3.renderer.Camera;
+import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.scene.VertexBuffer.Format;
 import com.jme3.scene.VertexBuffer.Usage;
@@ -143,15 +144,11 @@ public class ParticleTriMesh extends ParticleMesh {
             getBuffer(VertexBuffer.Type.TexCoord).setUsage(Usage.Stream);
         }
     }
+    
+     
 
     @Override
     public void updateParticleData(Particle[] particles, Camera cam, Matrix3f inverseRotation) {
-//        System.arraycopy(particles, 0, particlesCopy, 0, particlesCopy.length);
-//        comparator.setCamera(cam);
-//        Arrays.sort(particlesCopy, comparator);
-//        SortUtil.qsort(particlesCopy, comparator);
-//        SortUtil.msort(particles, particlesCopy, comparator);
-//        particles = particlesCopy;
 
         VertexBuffer pvb = getBuffer(VertexBuffer.Type.Position);
         FloatBuffer positions = (FloatBuffer) pvb.getData();
@@ -190,85 +187,23 @@ public class ParticleTriMesh extends ParticleMesh {
             Particle p = particles[i];
             boolean dead = p.life == 0;
             if (dead){
-                positions.put(0).put(0).put(0);
-                positions.put(0).put(0).put(0);
-                positions.put(0).put(0).put(0);
-                positions.put(0).put(0).put(0);
+            	resetPositions(positions);
                 continue;
-            }
-            
+            }           
             if (facingVelocity){
-                left.set(p.velocity).normalizeLocal();
-                camDir.cross(left, up);
-                up.multLocal(p.size);
-                left.multLocal(p.size);
+            	adjustToFacingVelocity(p, left, camDir, up);
             }else if (faceNormal != null){
-                up.set(faceNormal).crossLocal(Vector3f.UNIT_X);
-                faceNormal.cross(up, left);
-                up.multLocal(p.size);
-                left.multLocal(p.size);
-                if (p.angle != 0) {
-                    TempVars vars = TempVars.get();
-                    vars.vect1.set(faceNormal).normalizeLocal();
-                    vars.quat1.fromAngleNormalAxis(p.angle, vars.vect1);
-                    vars.quat1.multLocal(left);
-                    vars.quat1.multLocal(up);
-                    vars.release();
-                }
+            	adjustToNotFaceNormal(p, up, faceNormal, left);
             }else if (p.angle != 0){
-                float cos = FastMath.cos(p.angle) * p.size;
-                float sin = FastMath.sin(p.angle) * p.size;
-
-                left.x = camLeft.x * cos + camUp.x * sin;
-                left.y = camLeft.y * cos + camUp.y * sin;
-                left.z = camLeft.z * cos + camUp.z * sin;
-
-                up.x = camLeft.x * -sin + camUp.x * cos;
-                up.y = camLeft.y * -sin + camUp.y * cos;
-                up.z = camLeft.z * -sin + camUp.z * cos;
+            	adjustToAngle(p, left, up, camLeft, camUp);
             }else{
-                up.set(camUp);
-                left.set(camLeft);
-                up.multLocal(p.size);
-                left.multLocal(p.size);
+            	adjustDefault(p, up, left, camUp, camLeft);
             }
-
-            positions.put(p.position.x + left.x + up.x)
-                     .put(p.position.y + left.y + up.y)
-                     .put(p.position.z + left.z + up.z);
-
-            positions.put(p.position.x - left.x + up.x)
-                     .put(p.position.y - left.y + up.y)
-                     .put(p.position.z - left.z + up.z);
-
-            positions.put(p.position.x + left.x - up.x)
-                     .put(p.position.y + left.y - up.y)
-                     .put(p.position.z + left.z - up.z);
-
-            positions.put(p.position.x - left.x - up.x)
-                     .put(p.position.y - left.y - up.y)
-                     .put(p.position.z - left.z - up.z);
-
-            if (uniqueTexCoords){
-                int imgX = p.imageIndex % imagesX;
-                int imgY = (p.imageIndex - imgX) / imagesY;
-
-                float startX = ((float) imgX) / imagesX;
-                float startY = ((float) imgY) / imagesY;
-                float endX   = startX + (1f / imagesX);
-                float endY   = startY + (1f / imagesY);
-
-                texcoords.put(startX).put(endY);
-                texcoords.put(endX).put(endY);
-                texcoords.put(startX).put(startY);
-                texcoords.put(endX).put(startY);
+            reAdjustPositions(positions, p, left, up);
+            if (uniqueTexCoords){	
+            	adjustTexCoords(p, texcoords);
             }
-
-            int abgr = p.color.asIntABGR();
-            colors.putInt(abgr);
-            colors.putInt(abgr);
-            colors.putInt(abgr);
-            colors.putInt(abgr);
+            reAdjustColors(p, colors);
         }
 
         positions.clear();
@@ -284,5 +219,95 @@ public class ParticleTriMesh extends ParticleMesh {
         pvb.updateData(positions);
         cvb.updateData(colors);
     }
+    
+    private void resetPositions(FloatBuffer positions) { 	
+        positions.put(0).put(0).put(0);
+        positions.put(0).put(0).put(0);
+        positions.put(0).put(0).put(0);
+        positions.put(0).put(0).put(0);
+    }
+    
+    private void adjustToFacingVelocity(Particle p, Vector3f left, Vector3f camDir, Vector3f up) {
+        left.set(p.velocity).normalizeLocal();
+        camDir.cross(left, up);
+        up.multLocal(p.size);
+        left.multLocal(p.size);
+    }
+    
+    private void adjustToNotFaceNormal(Particle p, Vector3f up, Vector3f faceNormal, Vector3f left) {
+        up.set(faceNormal).crossLocal(Vector3f.UNIT_X);
+        faceNormal.cross(up, left);
+        up.multLocal(p.size);
+        left.multLocal(p.size);
+        if (p.angle != 0) {
+            TempVars vars = TempVars.get();
+            vars.vect1.set(faceNormal).normalizeLocal();
+            vars.quat1.fromAngleNormalAxis(p.angle, vars.vect1);
+            vars.quat1.multLocal(left);
+            vars.quat1.multLocal(up);
+            vars.release();
+        }   
+    }
+    
+    private void adjustToAngle(Particle p,Vector3f left, Vector3f up, Vector3f camLeft, Vector3f camUp) {
+    	float cos = FastMath.cos(p.angle) * p.size;
+        float sin = FastMath.sin(p.angle) * p.size;
+        
+        left.x = camLeft.x * cos + camUp.x * sin;
+        left.y = camLeft.y * cos + camUp.y * sin;
+        left.z = camLeft.z * cos + camUp.z * sin;
 
+        up.x = camLeft.x * -sin + camUp.x * cos;
+        up.y = camLeft.y * -sin + camUp.y * cos;
+        up.z = camLeft.z * -sin + camUp.z * cos;
+    }
+    
+    private void adjustDefault(Particle p, Vector3f left, Vector3f up, Vector3f camUp, Vector3f camLeft) {
+        up.set(camUp);
+        left.set(camLeft);
+        up.multLocal(p.size);
+        left.multLocal(p.size);
+    }
+    
+    private void reAdjustPositions(FloatBuffer positions, Particle p, Vector3f left, Vector3f up) {
+        positions.put(p.position.x + left.x + up.x)
+        .put(p.position.y + left.y + up.y)
+        .put(p.position.z + left.z + up.z);
+
+        positions.put(p.position.x - left.x + up.x)
+        .put(p.position.y - left.y + up.y)
+        .put(p.position.z - left.z + up.z);
+
+        positions.put(p.position.x + left.x - up.x)
+        .put(p.position.y + left.y - up.y)
+        .put(p.position.z + left.z - up.z);
+
+        positions.put(p.position.x - left.x - up.x)
+        .put(p.position.y - left.y - up.y)
+        .put(p.position.z - left.z - up.z);
+    }
+    
+    private void adjustTexCoords(Particle p, FloatBuffer texcoords) {
+        int imgX = p.imageIndex % imagesX;
+        int imgY = (p.imageIndex - imgX) / imagesY;
+
+        float startX = ((float) imgX) / imagesX;
+        float startY = ((float) imgY) / imagesY;
+        float endX   = startX + (1f / imagesX);
+        float endY   = startY + (1f / imagesY);
+
+        texcoords.put(startX).put(endY);
+        texcoords.put(endX).put(endY);
+        texcoords.put(startX).put(startY);
+        texcoords.put(endX).put(startY);
+    }
+    
+    private void reAdjustColors(Particle p, ByteBuffer colors) {
+    int abgr = p.color.asIntABGR();
+    colors.putInt(abgr);
+    colors.putInt(abgr);
+    colors.putInt(abgr);
+    colors.putInt(abgr);
+    }
+    
 }

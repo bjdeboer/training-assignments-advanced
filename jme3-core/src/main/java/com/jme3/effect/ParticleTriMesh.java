@@ -52,7 +52,10 @@ public class ParticleTriMesh extends ParticleMesh {
     private boolean uniqueTexCoords = false;
 //    private ParticleComparator comparator = new ParticleComparator();
     private ParticleEmitter emitter;
-//    private Particle[] particlesCopy;
+    private final boolean FACING_VELOCITY = emitter.isFacingVelocity(); 
+    private final Vector3f FACENORMAL = emitter.getFaceNormal();
+
+    //    private Particle[] particlesCopy;
 
     @Override
     public void initParticleData(ParticleEmitter emitter, int numParticles) {
@@ -144,44 +147,28 @@ public class ParticleTriMesh extends ParticleMesh {
             getBuffer(VertexBuffer.Type.TexCoord).setUsage(Usage.Stream);
         }
     }
-    
-     
-
+      
     @Override
     public void updateParticleData(Particle[] particles, Camera cam, Matrix3f inverseRotation) {
 
-        VertexBuffer pvb = getBuffer(VertexBuffer.Type.Position);
-        FloatBuffer positions = (FloatBuffer) pvb.getData();
-
-        VertexBuffer cvb = getBuffer(VertexBuffer.Type.Color);
-        ByteBuffer colors = (ByteBuffer) cvb.getData();
-
-        VertexBuffer tvb = getBuffer(VertexBuffer.Type.TexCoord);
-        FloatBuffer texcoords = (FloatBuffer) tvb.getData();
+    	//Created an inner class to provide the particle properties
+    	//Method object extraction
+    	ParticlePropertiesProvider ppp = new ParticlePropertiesProvider(this);
+    	FloatBuffer positions = ppp.getPositions();
+        ByteBuffer colors = ppp.getColors();
+        FloatBuffer texcoords = ppp.getTextCoords();        
 
         Vector3f camUp   = cam.getUp();
         Vector3f camLeft = cam.getLeft();
         Vector3f camDir  = cam.getDirection();
+        Vector3f up = new Vector3f();
+        Vector3f left = new Vector3f();
 
-        inverseRotation.multLocal(camUp);
-        inverseRotation.multLocal(camLeft);
-        inverseRotation.multLocal(camDir);
-
-        boolean facingVelocity = emitter.isFacingVelocity();
-
-        Vector3f up = new Vector3f(),
-                 left = new Vector3f();
-
-        if (!facingVelocity){
-            up.set(camUp);
-            left.set(camLeft);
-        }
-
-        // update data in vertex buffers
-        positions.clear();
-        colors.clear();
-        texcoords.clear();
-        Vector3f faceNormal = emitter.getFaceNormal();
+        //Splitted up much the functionality in separate methods
+        //Method extraction
+        setInverseRotation(inverseRotation, camUp, camLeft, camDir);
+        adjustVectors(up, left, camUp, camLeft);
+        resetVertexBuffers(positions, colors, texcoords);     
         
         for (int i = 0; i < particles.length; i++){
             Particle p = particles[i];
@@ -190,10 +177,10 @@ public class ParticleTriMesh extends ParticleMesh {
             	resetPositions(positions);
                 continue;
             }           
-            if (facingVelocity){
+            if (FACING_VELOCITY){
             	adjustToFacingVelocity(p, left, camDir, up);
-            }else if (faceNormal != null){
-            	adjustToNotFaceNormal(p, up, faceNormal, left);
+            }else if (FACENORMAL != null){
+            	adjustToNotFaceNormal(p, up, FACENORMAL, left);
             }else if (p.angle != 0){
             	adjustToAngle(p, left, up, camLeft, camUp);
             }else{
@@ -205,19 +192,30 @@ public class ParticleTriMesh extends ParticleMesh {
             }
             reAdjustColors(p, colors);
         }
-
         positions.clear();
         colors.clear();
-        if (!uniqueTexCoords)
-            texcoords.clear();
-        else{
-            texcoords.clear();
-            tvb.updateData(texcoords);
+        texcoords.clear();
+        if(uniqueTexCoords) {
+        	ppp.updateAll(positions, colors, texcoords);
         }
-
-        // force renderer to re-send data to GPU
-        pvb.updateData(positions);
-        cvb.updateData(colors);
+        else {
+        	ppp.updatePositions(positions);
+        	ppp.updateColors(colors);
+        }
+    }
+    
+    
+    private void resetVertexBuffers(FloatBuffer positions, ByteBuffer colors, FloatBuffer texcoords) {
+        positions.clear();
+        colors.clear();
+        texcoords.clear();
+    }
+    
+    private void adjustVectors(Vector3f up, Vector3f left, Vector3f camUp, Vector3f camLeft) {
+        if (!FACING_VELOCITY){
+            up.set(camUp);
+            left.set(camLeft);
+        }
     }
     
     private void resetPositions(FloatBuffer positions) { 	
@@ -308,6 +306,12 @@ public class ParticleTriMesh extends ParticleMesh {
     colors.putInt(abgr);
     colors.putInt(abgr);
     colors.putInt(abgr);
+    }
+    
+    private void setInverseRotation(Matrix3f inverseRotation, Vector3f camUp, Vector3f camLeft, Vector3f camDir) {
+        inverseRotation.multLocal(camUp);
+        inverseRotation.multLocal(camLeft);
+        inverseRotation.multLocal(camDir);
     }
     
 }

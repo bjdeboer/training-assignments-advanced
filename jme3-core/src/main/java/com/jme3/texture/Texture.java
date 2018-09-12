@@ -36,6 +36,8 @@ import com.jme3.asset.AssetNotFoundException;
 import com.jme3.asset.CloneableSmartAsset;
 import com.jme3.asset.TextureKey;
 import com.jme3.export.*;
+import com.jme3.texture.Texture.WrapAxis;
+import com.jme3.texture.Texture.WrapMode;
 import com.jme3.util.PlaceholderAssets;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -57,6 +59,10 @@ import java.util.logging.Logger;
  * @version $Id: Texture.java 4131 2009-03-19 20:15:28Z blaine.dev $
  */
 public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable {
+	
+    WrapMode wrapS = WrapMode.EdgeClamp;
+    WrapMode wrapT = WrapMode.EdgeClamp;
+    WrapMode wrapR = WrapMode.EdgeClamp;
 
     public enum Type {
 
@@ -439,41 +445,6 @@ public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable
         return image;
     }
 
-    /**
-     * <code>setWrap</code> sets the wrap mode of this texture for a
-     * particular axis.
-     *
-     * @param axis
-     *            the texture axis to define a wrapmode on.
-     * @param mode
-     *            the wrap mode for the given axis of the texture.
-     * @throws IllegalArgumentException
-     *             if axis or mode are null or invalid for this type of texture
-     */
-    public abstract void setWrap(WrapAxis axis, WrapMode mode);
-
-    /**
-     * <code>setWrap</code> sets the wrap mode of this texture for all axis.
-     *
-     * @param mode
-     *            the wrap mode for the given axis of the texture.
-     * @throws IllegalArgumentException
-     *             if mode is null or invalid for this type of texture
-     */
-    public abstract void setWrap(WrapMode mode);
-
-    /**
-     * <code>getWrap</code> returns the wrap mode for a given coordinate axis
-     * on this texture.
-     *
-     * @param axis
-     *            the axis to return for
-     * @return the wrap mode of the texture.
-     * @throws IllegalArgumentException
-     *             if axis is null or invalid for this type of texture
-     */
-    public abstract WrapMode getWrap(WrapAxis axis);
-
     public abstract Type getType();
 
     public String getName() {
@@ -559,15 +530,21 @@ public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable
         return hash;
     }
 
-   /** Retrieve a basic clone of this Texture (ie, clone everything but the
+    /** Retrieve a basic clone of this Texture (ie, clone everything but the
      * image data, which is shared)
      *
      * @return Texture
      * 
      * @deprecated Use {@link Texture#clone()} instead.
      */
-    @Deprecated
+    
+    //@Deprecated
     public Texture createSimpleClone(Texture rVal) {
+    	
+        rVal.setWrap(WrapAxis.S, wrapS);
+        rVal.setWrap(WrapAxis.T, wrapT);
+        rVal.setWrap(WrapAxis.R, wrapR);
+    	
         rVal.setMinFilter(minificationFilter);
         rVal.setMagFilter(magnificationFilter);
         rVal.setShadowCompareMode(shadowCompareMode);
@@ -577,6 +554,76 @@ public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable
         rVal.setName(name);
         return rVal;
     }
+    
+    /**
+     * <code>setWrap</code> sets the wrap mode of this texture for a
+     * particular axis.
+     *
+     * @param axis
+     *            the texture axis to define a wrapmode on.
+     * @param mode
+     *            the wrap mode for the given axis of the texture.
+     * @throws IllegalArgumentException
+     *             if axis or mode are null or invalid for this type of texture
+     */
+    public void setWrap(WrapAxis axis, WrapMode mode){
+        if (mode == null) {
+            throw new IllegalArgumentException("mode can not be null.");
+        } else if (axis == null) {
+            throw new IllegalArgumentException("axis can not be null.");
+        }
+        switch (axis) {
+            case S:
+                this.wrapS = mode;
+                break;
+            case T:
+                this.wrapT = mode;
+                break;
+            case R:
+                this.wrapR = mode;
+                break;
+        }
+    }
+
+    /**
+     * <code>setWrap</code> sets the wrap mode of this texture for all axis.
+     *
+     * @param mode
+     *            the wrap mode for the given axis of the texture.
+     * @throws IllegalArgumentException
+     *             if mode is null or invalid for this type of texture
+     */
+    public  void setWrap(WrapMode mode){
+        if (mode == null) {
+            throw new IllegalArgumentException("mode can not be null.");
+        }
+        this.wrapS = mode;
+        this.wrapT = mode;
+        this.wrapR = mode;
+    }
+
+    /**
+     * <code>getWrap</code> returns the wrap mode for a given coordinate axis
+     * on this texture.
+     *
+     * @param axis
+     *            the axis to return for
+     * @return the wrap mode of the texture.
+     * @throws IllegalArgumentException
+     *             if axis is null or invalid for this type of texture
+     */
+    public  WrapMode getWrap(WrapAxis axis){
+        switch (axis) {
+        case S:
+            return wrapS;
+        case T:
+            return wrapT;
+        case R:
+            return wrapR;
+    }
+    throw new IllegalArgumentException("invalid WrapAxis: " + axis);
+}
+
 
     /**
      * @deprecated Use {@link Texture#clone()} instead.

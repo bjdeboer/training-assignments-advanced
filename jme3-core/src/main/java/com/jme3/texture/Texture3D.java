@@ -43,9 +43,6 @@ import java.io.IOException;
  */
 public class Texture3D extends Texture {
 
-    private WrapMode wrapS = WrapMode.EdgeClamp;
-    private WrapMode wrapT = WrapMode.EdgeClamp;
-    private WrapMode wrapR = WrapMode.EdgeClamp;
 
     /**
      * Creates a new two-dimensional texture with default attributes.
@@ -105,13 +102,13 @@ public class Texture3D extends Texture {
         return clone;
     }
 
-    @Override
-    public Texture createSimpleClone(Texture rVal) {
-        rVal.setWrap(WrapAxis.S, wrapS);
-        rVal.setWrap(WrapAxis.T, wrapT);
-        rVal.setWrap(WrapAxis.R, wrapR);
-        return super.createSimpleClone(rVal);
-    }
+//    @Override
+//    public Texture createSimpleClone(Texture rVal) {
+//        rVal.setWrap(WrapAxis.S, wrapS);
+//        rVal.setWrap(WrapAxis.T, wrapT);
+//        rVal.setWrap(WrapAxis.R, wrapR);
+//        return super.createSimpleClone(rVal);
+//    }
 
     /**
      * <code>setWrap</code> sets the wrap mode of this texture for a

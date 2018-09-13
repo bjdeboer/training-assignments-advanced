@@ -36,7 +36,7 @@ import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.export.Savable;
-import com.jme3.shader.Shader.ShaderType;
+import com.jme3.shader.ShaderType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +51,7 @@ import java.util.List;
 public class ShaderNodeDefinition implements Savable {
 
     private String name;
-    private Shader.ShaderType type;
+    private ShaderType type;
     private List<String> shadersLanguage = new ArrayList<String>();
     private List<String> shadersPath = new ArrayList<String>();
     private String documentation;
@@ -247,7 +247,7 @@ public class ShaderNodeDefinition implements Savable {
             shadersPath = new ArrayList<String>();
         }
 
-        type = ic.readEnum("type", Shader.ShaderType.class, null);
+        type = ic.readEnum("type", ShaderType.class, null);
         inputs = (List<ShaderNodeVariable>) ic.readSavableArrayList("inputs", new ArrayList<ShaderNodeVariable>());
         outputs = (List<ShaderNodeVariable>) ic.readSavableArrayList("outputs", new ArrayList<ShaderNodeVariable>());
     }

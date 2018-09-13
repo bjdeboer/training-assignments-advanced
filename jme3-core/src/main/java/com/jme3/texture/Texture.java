@@ -530,13 +530,13 @@ public abstract class Texture implements CloneableSmartAsset, Savable, Cloneable
         return hash;
     }
 
-    /** Retrieve a basic clone of this Texture (ie, clone everything but the
-     * image data, which is shared)
-     *
-     * @return Texture
-     * 
-     * @deprecated Use {@link Texture#clone()} instead.
-     */
+//    /** Retrieve a basic clone of this Texture (ie, clone everything but the
+//     * image data, which is shared)
+//     *
+//     * @return Texture
+//     * 
+//     * @deprecated Use {@link Texture#clone()} instead.
+//     */
     
     //@Deprecated
     public Texture createSimpleClone(Texture rVal) {

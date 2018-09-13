@@ -45,7 +45,7 @@ import com.jme3.renderer.Statistics;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.shader.Shader;
-import com.jme3.shader.Shader.ShaderSource;
+import com.jme3.shader.ShaderSource;
 import com.jme3.texture.FrameBuffer;
 import com.jme3.texture.Image;
 import com.jme3.texture.Texture;
@@ -118,9 +118,6 @@ public class NullRenderer implements Renderer {
     public void deleteShader(Shader shader) {
     }
 
-    public void deleteShaderSource(ShaderSource source) {
-    }
-
     public void copyFrameBuffer(FrameBuffer src, FrameBuffer dst) {
     }
 
@@ -178,4 +175,10 @@ public class NullRenderer implements Renderer {
     @Override
     public void setDefaultAnisotropicFilter(int level) {
     }
+
+	@Override
+	public void deleteShaderSource(com.jme3.shader.ShaderSource shaderSource) {
+		// TODO Auto-generated method stub
+		
+	}
 }

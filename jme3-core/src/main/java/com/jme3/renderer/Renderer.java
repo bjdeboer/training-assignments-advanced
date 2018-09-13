@@ -36,7 +36,7 @@ import com.jme3.math.ColorRGBA;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.shader.Shader;
-import com.jme3.shader.Shader.ShaderSource;
+import com.jme3.shader.ShaderSource;
 import com.jme3.system.AppSettings;
 import com.jme3.texture.FrameBuffer;
 import com.jme3.texture.Image;
@@ -179,9 +179,9 @@ public interface Renderer {
     /**
      * Deletes the provided shader source.
      * 
-     * @param source The ShaderSource to delete.
+     * @param shaderSource The ShaderSource to delete.
      */
-    public void deleteShaderSource(ShaderSource source);
+    public void deleteShaderSource(com.jme3.shader.ShaderSource shaderSource);
 
     /**
      * Copies contents from src to dst, scaling if necessary.

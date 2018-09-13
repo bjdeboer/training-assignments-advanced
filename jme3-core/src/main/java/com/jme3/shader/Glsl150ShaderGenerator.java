@@ -33,7 +33,7 @@ package com.jme3.shader;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.ShaderGenerationInfo;
-import com.jme3.shader.Shader.ShaderType;
+import com.jme3.shader.ShaderType;
 
 /**
  * This shader Generator can generate Vertex and Fragment shaders from
@@ -88,10 +88,10 @@ public class Glsl150ShaderGenerator extends Glsl100ShaderGenerator {
      * and the fragment outputs are declared
      */
     @Override
-    protected void generateStartOfMainSection(StringBuilder source, ShaderGenerationInfo info, Shader.ShaderType type) {
+    protected void generateStartOfMainSection(StringBuilder source, ShaderGenerationInfo info, ShaderType type) {
         source.append("\n");
 
-        if (type == Shader.ShaderType.Fragment) {
+        if (type == ShaderType.Fragment) {
             for (ShaderNodeVariable global : info.getFragmentGlobals()) {
                 declareVariable(source, global, null, true, "out");
             }
@@ -102,9 +102,9 @@ public class Glsl150ShaderGenerator extends Glsl100ShaderGenerator {
         source.append("void main(){\n");
         indent();
 
-        if (type == Shader.ShaderType.Vertex) {
+        if (type == ShaderType.Vertex) {
             declareGlobalPosition(info, source);
-        } else if (type == Shader.ShaderType.Fragment) {
+        } else if (type == ShaderType.Fragment) {
             for (ShaderNodeVariable global : info.getFragmentGlobals()) {
                 initVariable(source, global, "vec4(1.0)");
             }
@@ -118,8 +118,8 @@ public class Glsl150ShaderGenerator extends Glsl100ShaderGenerator {
      * must have been mapped in the main section.
      */
     @Override
-    protected void generateEndOfMainSection(StringBuilder source, ShaderGenerationInfo info, Shader.ShaderType type) {
-        if (type == Shader.ShaderType.Vertex) {
+    protected void generateEndOfMainSection(StringBuilder source, ShaderGenerationInfo info, ShaderType type) {
+        if (type == ShaderType.Vertex) {
             appendOutput(source, "gl_Position", info.getVertexGlobal());
         }
         unIndent();

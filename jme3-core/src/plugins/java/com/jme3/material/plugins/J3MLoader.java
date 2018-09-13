@@ -45,6 +45,7 @@ import com.jme3.math.Vector2f;
 import com.jme3.math.Vector3f;
 import com.jme3.shader.DefineList;
 import com.jme3.shader.Shader;
+import com.jme3.shader.ShaderType;
 import com.jme3.shader.VarType;
 import com.jme3.texture.Texture;
 import com.jme3.texture.Texture2D;
@@ -79,14 +80,14 @@ public class J3MLoader implements AssetLoader {
     private RenderState renderState;
     private ArrayList<String> presetDefines = new ArrayList<String>();
 
-    private EnumMap<Shader.ShaderType, String> shaderLanguages;
-    private EnumMap<Shader.ShaderType, String> shaderNames;
+    private EnumMap<ShaderType, String> shaderLanguages;
+    private EnumMap<ShaderType, String> shaderNames;
 
     private static final String whitespacePattern = "\\p{javaWhitespace}+";
 
     public J3MLoader() {
-        shaderLanguages = new EnumMap<>(Shader.ShaderType.class);
-        shaderNames = new EnumMap<>(Shader.ShaderType.class);
+        shaderLanguages = new EnumMap<>(ShaderType.class);
+        shaderNames = new EnumMap<>(ShaderType.class);
     }
 
 
@@ -101,14 +102,14 @@ public class J3MLoader implements AssetLoader {
             throw new IOException("Shader statement syntax incorrect: " + statement);
         }
 
-        for (Shader.ShaderType shaderType : Shader.ShaderType.values()) {
+        for (ShaderType shaderType : ShaderType.values()) {
             if (typeAndLang[0].equals(shaderType.toString() + "Shader")) {
                 readShaderDefinition(shaderType, split[1].trim(), typeAndLang[1]);
             }
         }
     }
 
-    private void readShaderDefinition(Shader.ShaderType shaderType, String name, String language) {
+    private void readShaderDefinition(ShaderType shaderType, String name, String language) {
         shaderNames.put(shaderType, name);
         shaderLanguages.put(shaderType, language);
     }
@@ -634,7 +635,7 @@ public class J3MLoader implements AssetLoader {
             // Not sure if this is needed anymore, since shader caching
             // is now done by TechniqueDef.
             technique.setShaderFile(technique.hashCode() + "", technique.hashCode() + "", "GLSL100", "GLSL100");
-        }else if (shaderNames.containsKey(Shader.ShaderType.Vertex) && shaderNames.containsKey(Shader.ShaderType.Fragment)) {
+        }else if (shaderNames.containsKey(ShaderType.Vertex) && shaderNames.containsKey(ShaderType.Fragment)) {
             technique.setShaderFile(shaderNames, shaderLanguages);
         } else {
             technique = null;
@@ -794,7 +795,7 @@ public class J3MLoader implements AssetLoader {
 
     protected void initNodesLoader() {
         if (!isUseNodes) {
-            isUseNodes = shaderNames.get(Shader.ShaderType.Vertex) == null && shaderNames.get(Shader.ShaderType.Fragment) == null;
+            isUseNodes = shaderNames.get(ShaderType.Vertex) == null && shaderNames.get(ShaderType.Fragment) == null;
             if (isUseNodes) {
                 if (nodesLoaderDelegate == null) {
                     nodesLoaderDelegate = new ShaderNodeLoaderDelegate();

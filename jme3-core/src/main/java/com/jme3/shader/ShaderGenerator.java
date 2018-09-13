@@ -36,7 +36,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.material.ShaderGenerationInfo;
 import com.jme3.material.Technique;
 import com.jme3.material.TechniqueDef;
-import com.jme3.shader.Shader.ShaderType;
+import com.jme3.shader.ShaderType;
 import java.util.List;
 import java.util.regex.*;
 
@@ -178,7 +178,7 @@ public abstract class ShaderGenerator {
      * @param info the ShaderGenerationInfo
      * @param type the Shader type
      */
-    protected void generateDeclarationAndMainBody(List<ShaderNode> shaderNodes, StringBuilder sourceDeclaration, StringBuilder source, ShaderGenerationInfo info, Shader.ShaderType type) {
+    protected void generateDeclarationAndMainBody(List<ShaderNode> shaderNodes, StringBuilder sourceDeclaration, StringBuilder source, ShaderGenerationInfo info, com.jme3.shader.ShaderType type) {
         for (ShaderNode shaderNode : shaderNodes) {
             if (info.getUnusedNodes().contains(shaderNode.getName())) {
                 continue;
@@ -233,7 +233,7 @@ public abstract class ShaderGenerator {
      *
      * @return the shaderLanguage and version.
      */
-    protected abstract String getLanguageAndVersion(Shader.ShaderType type);
+    protected abstract String getLanguageAndVersion(com.jme3.shader.ShaderType t);
 
     /**
      * generates the uniforms declaration for a shader of the given type.

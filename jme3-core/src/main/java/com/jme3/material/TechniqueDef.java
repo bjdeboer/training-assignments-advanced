@@ -36,7 +36,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.export.*;
 import com.jme3.renderer.Caps;
 import com.jme3.shader.*;
-import com.jme3.shader.Shader.ShaderType;
+import com.jme3.shader.ShaderType;
 
 import java.io.IOException;
 import java.util.*;
@@ -136,8 +136,8 @@ public class TechniqueDef implements Savable {
     private String name;
     private int sortId;
     
-    private EnumMap<Shader.ShaderType,String> shaderLanguages;
-    private EnumMap<Shader.ShaderType,String> shaderNames;
+    private EnumMap<ShaderType,String> shaderLanguages;
+    private EnumMap<ShaderType,String> shaderNames;
 
     private String shaderPrologue;
     private ArrayList<String> defineNames;
@@ -178,8 +178,8 @@ public class TechniqueDef implements Savable {
      * Serialization only. Do not use.
      */
     public TechniqueDef() {
-        shaderLanguages = new EnumMap<Shader.ShaderType, String>(Shader.ShaderType.class);
-        shaderNames = new EnumMap<Shader.ShaderType, String>(Shader.ShaderType.class);
+        shaderLanguages = new EnumMap<ShaderType, String>(ShaderType.class);
+        shaderNames = new EnumMap<ShaderType, String>(ShaderType.class);
         defineNames = new ArrayList<String>();
         defineTypes = new ArrayList<VarType>();
         paramToDefineId = new HashMap<String, Integer>();
@@ -331,10 +331,10 @@ public class TechniqueDef implements Savable {
      * @param fragLanguage The fragment shader language
      */
     public void setShaderFile(String vertexShader, String fragmentShader, String vertLanguage, String fragLanguage) {
-        this.shaderLanguages.put(Shader.ShaderType.Vertex, vertLanguage);
-        this.shaderNames.put(Shader.ShaderType.Vertex, vertexShader);
-        this.shaderLanguages.put(Shader.ShaderType.Fragment, fragLanguage);
-        this.shaderNames.put(Shader.ShaderType.Fragment, fragmentShader);
+        this.shaderLanguages.put(ShaderType.Vertex, vertLanguage);
+        this.shaderNames.put(ShaderType.Vertex, vertexShader);
+        this.shaderLanguages.put(ShaderType.Fragment, fragLanguage);
+        this.shaderNames.put(ShaderType.Fragment, fragmentShader);
 
         requiredCaps.clear();
         Caps vertCap = Caps.valueOf(vertLanguage);
@@ -531,10 +531,10 @@ public class TechniqueDef implements Savable {
      * @param shaderNames EnumMap containing all shader names for this stage
      * @param shaderLanguages EnumMap containing all shader languages for this stage
      */
-    public void setShaderFile(EnumMap<Shader.ShaderType, String> shaderNames, EnumMap<Shader.ShaderType, String> shaderLanguages) {
+    public void setShaderFile(EnumMap<ShaderType, String> shaderNames, EnumMap<ShaderType, String> shaderLanguages) {
         requiredCaps.clear();
 
-        for (Shader.ShaderType shaderType : shaderNames.keySet()) {
+        for (ShaderType shaderType : shaderNames.keySet()) {
             String language = shaderLanguages.get(shaderType);
             String shaderFile = shaderNames.get(shaderType);
 
@@ -544,9 +544,9 @@ public class TechniqueDef implements Savable {
             Caps vertCap = Caps.valueOf(language);
             requiredCaps.add(vertCap);
 
-            if (shaderType.equals(Shader.ShaderType.Geometry)) {
+            if (shaderType.equals(ShaderType.Geometry)) {
                 requiredCaps.add(Caps.GeometryShader);
-            } else if (shaderType.equals(Shader.ShaderType.TessellationControl)) {
+            } else if (shaderType.equals(ShaderType.TessellationControl)) {
                 requiredCaps.add(Caps.TesselationShader);
             }
         }
@@ -559,7 +559,7 @@ public class TechniqueDef implements Savable {
      * @return the name of the fragment shader to be used.
      */
     public String getFragmentShaderName() {
-        return shaderNames.get(Shader.ShaderType.Fragment);
+        return shaderNames.get(ShaderType.Fragment);
     }
 
 
@@ -570,33 +570,33 @@ public class TechniqueDef implements Savable {
      * @return the name of the vertex shader to be used.
      */
     public String getVertexShaderName() {
-        return shaderNames.get(Shader.ShaderType.Vertex);
+        return shaderNames.get(ShaderType.Vertex);
     }
 
     /**
      * Returns the language of the fragment shader used in this technique.
      */
     public String getFragmentShaderLanguage() {
-        return shaderLanguages.get(Shader.ShaderType.Fragment);
+        return shaderLanguages.get(ShaderType.Fragment);
     }
 
     /**
      * Returns the language of the vertex shader used in this technique.
      */
     public String getVertexShaderLanguage() {
-        return shaderLanguages.get(Shader.ShaderType.Vertex);
+        return shaderLanguages.get(ShaderType.Vertex);
     }
 
     /**Returns the language for each shader program
      * @param shaderType
      */
-    public String getShaderProgramLanguage(Shader.ShaderType shaderType){
+    public String getShaderProgramLanguage(ShaderType shaderType){
         return shaderLanguages.get(shaderType);
     }
     /**Returns the name for each shader program
      * @param shaderType
      */
-    public String getShaderProgramName(Shader.ShaderType shaderType){
+    public String getShaderProgramName(ShaderType shaderType){
         return shaderNames.get(shaderType);
     }
 
@@ -642,16 +642,16 @@ public class TechniqueDef implements Savable {
         OutputCapsule oc = ex.getCapsule(this);
         oc.write(name, "name", null);
 
-        oc.write(shaderNames.get(Shader.ShaderType.Vertex), "vertName", null);
-        oc.write(shaderNames.get(Shader.ShaderType.Fragment), "fragName", null);
-        oc.write(shaderNames.get(Shader.ShaderType.Geometry), "geomName", null);
-        oc.write(shaderNames.get(Shader.ShaderType.TessellationControl), "tsctrlName", null);
-        oc.write(shaderNames.get(Shader.ShaderType.TessellationEvaluation), "tsevalName", null);
-        oc.write(shaderLanguages.get(Shader.ShaderType.Vertex), "vertLanguage", null);
-        oc.write(shaderLanguages.get(Shader.ShaderType.Fragment), "fragLanguage", null);
-        oc.write(shaderLanguages.get(Shader.ShaderType.Geometry), "geomLanguage", null);
-        oc.write(shaderLanguages.get(Shader.ShaderType.TessellationControl), "tsctrlLanguage", null);
-        oc.write(shaderLanguages.get(Shader.ShaderType.TessellationEvaluation), "tsevalLanguage", null);
+        oc.write(shaderNames.get(ShaderType.Vertex), "vertName", null);
+        oc.write(shaderNames.get(ShaderType.Fragment), "fragName", null);
+        oc.write(shaderNames.get(ShaderType.Geometry), "geomName", null);
+        oc.write(shaderNames.get(ShaderType.TessellationControl), "tsctrlName", null);
+        oc.write(shaderNames.get(ShaderType.TessellationEvaluation), "tsevalName", null);
+        oc.write(shaderLanguages.get(ShaderType.Vertex), "vertLanguage", null);
+        oc.write(shaderLanguages.get(ShaderType.Fragment), "fragLanguage", null);
+        oc.write(shaderLanguages.get(ShaderType.Geometry), "geomLanguage", null);
+        oc.write(shaderLanguages.get(ShaderType.TessellationControl), "tsctrlLanguage", null);
+        oc.write(shaderLanguages.get(ShaderType.TessellationEvaluation), "tsevalLanguage", null);
 
         oc.write(shaderPrologue, "shaderPrologue", null);
         oc.write(lightMode, "lightMode", LightMode.Disable);
@@ -671,11 +671,11 @@ public class TechniqueDef implements Savable {
     public void read(JmeImporter im) throws IOException{
         InputCapsule ic = im.getCapsule(this);
         name = ic.readString("name", null);
-        shaderNames.put(Shader.ShaderType.Vertex,ic.readString("vertName", null));
-        shaderNames.put(Shader.ShaderType.Fragment,ic.readString("fragName", null));
-        shaderNames.put(Shader.ShaderType.Geometry,ic.readString("geomName", null));
-        shaderNames.put(Shader.ShaderType.TessellationControl,ic.readString("tsctrlName", null));
-        shaderNames.put(Shader.ShaderType.TessellationEvaluation,ic.readString("tsevalName", null));
+        shaderNames.put(ShaderType.Vertex,ic.readString("vertName", null));
+        shaderNames.put(ShaderType.Fragment,ic.readString("fragName", null));
+        shaderNames.put(ShaderType.Geometry,ic.readString("geomName", null));
+        shaderNames.put(ShaderType.TessellationControl,ic.readString("tsctrlName", null));
+        shaderNames.put(ShaderType.TessellationEvaluation,ic.readString("tsevalName", null));
         shaderPrologue = ic.readString("shaderPrologue", null);
         lightMode = ic.readEnum("lightMode", LightMode.class, LightMode.Disable);
         shadowMode = ic.readEnum("shadowMode", ShadowMode.class, ShadowMode.Disable);
@@ -684,15 +684,15 @@ public class TechniqueDef implements Savable {
 
         if (ic.getSavableVersion(TechniqueDef.class) == 0) {
             // Old version
-            shaderLanguages.put(Shader.ShaderType.Vertex,ic.readString("shaderLang", null));
-            shaderLanguages.put(Shader.ShaderType.Fragment,shaderLanguages.get(Shader.ShaderType.Vertex));
+            shaderLanguages.put(ShaderType.Vertex,ic.readString("shaderLang", null));
+            shaderLanguages.put(ShaderType.Fragment,shaderLanguages.get(ShaderType.Vertex));
         } else {
             // New version
-            shaderLanguages.put(Shader.ShaderType.Vertex,ic.readString("vertLanguage", null));
-            shaderLanguages.put(Shader.ShaderType.Fragment,ic.readString("fragLanguage", null));
-            shaderLanguages.put(Shader.ShaderType.Geometry,ic.readString("geomLanguage", null));
-            shaderLanguages.put(Shader.ShaderType.TessellationControl,ic.readString("tsctrlLanguage", null));
-            shaderLanguages.put(Shader.ShaderType.TessellationEvaluation,ic.readString("tsevalLanguage", null));
+            shaderLanguages.put(ShaderType.Vertex,ic.readString("vertLanguage", null));
+            shaderLanguages.put(ShaderType.Fragment,ic.readString("fragLanguage", null));
+            shaderLanguages.put(ShaderType.Geometry,ic.readString("geomLanguage", null));
+            shaderLanguages.put(ShaderType.TessellationControl,ic.readString("tsctrlLanguage", null));
+            shaderLanguages.put(ShaderType.TessellationEvaluation,ic.readString("tsevalLanguage", null));
         }
 
         usesNodes = ic.readBoolean("usesNodes", false);
@@ -713,7 +713,7 @@ public class TechniqueDef implements Savable {
      * Returns the Enum containing the ShaderProgramNames;
      * @return
      */
-    public EnumMap<Shader.ShaderType, String> getShaderProgramNames() {
+    public EnumMap<ShaderType, String> getShaderProgramNames() {
         return shaderNames;
     }
 
@@ -721,7 +721,7 @@ public class TechniqueDef implements Savable {
      * Returns the Enum containing the ShaderProgramLanguages;
      * @return
      */
-    public EnumMap<Shader.ShaderType, String> getShaderProgramLanguages() {
+    public EnumMap<ShaderType, String> getShaderProgramLanguages() {
         return shaderLanguages;
     }
 

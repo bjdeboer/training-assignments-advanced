@@ -39,6 +39,7 @@ import com.jme3.material.MaterialDef;
 import com.jme3.material.ShaderGenerationInfo;
 import com.jme3.material.TechniqueDef;
 import com.jme3.shader.Shader;
+import com.jme3.shader.ShaderType;
 import com.jme3.shader.ShaderNode;
 import com.jme3.shader.ShaderNodeDefinition;
 import com.jme3.shader.ShaderNodeVariable;
@@ -150,7 +151,7 @@ public class ShaderNodeLoaderDelegate {
 
         for (DeclaredVariable v : varyings.values()) {
             for (ShaderNode sn : techniqueDef.getShaderNodes()) {
-                if (sn.getDefinition().getType() == Shader.ShaderType.Vertex) {
+                if (sn.getDefinition().getType() == ShaderType.Vertex) {
                     for (VariableMapping mapping : sn.getInputMapping()) {
                         if (mapping.getLeftVariable().equals(v.var)) {
                             if (mapping.getCondition() == null || v.var.getCondition() == null) {
@@ -236,7 +237,7 @@ public class ShaderNodeLoaderDelegate {
 
             if (line.startsWith("Type")) {
                 String type = line.substring(line.lastIndexOf(':') + 1).trim();
-                shaderNodeDefinition.setType(Shader.ShaderType.valueOf(type));
+                shaderNodeDefinition.setType(ShaderType.valueOf(type));
             } else if (line.startsWith("Shader ")) {
                 readShaderStatement(statement);
                 shaderNodeDefinition.getShadersLanguage().add(shaderLanguage);
@@ -698,7 +699,7 @@ public class ShaderNodeLoaderDelegate {
             storeGlobal(right, statement1);
 
         } else if (right.getNameSpace().equals("Attr")) {
-            if (shaderNode.getDefinition().getType() == Shader.ShaderType.Fragment) {
+            if (shaderNode.getDefinition().getType() == ShaderType.Fragment) {
                 throw new MatParseException("Cannot have an attribute as input in a fragment shader" + right.getName(), statement1);
             }
             updateVarFromAttributes(mapping.getRightVariable(), mapping);
@@ -709,7 +710,7 @@ public class ShaderNodeLoaderDelegate {
             if (param == null) {
                 throw new MatParseException("Could not find a Material Parameter named " + right.getName(), statement1);
             }
-            if (shaderNode.getDefinition().getType() == Shader.ShaderType.Vertex) {
+            if (shaderNode.getDefinition().getType() == ShaderType.Vertex) {
                 if (updateRightFromUniforms(param, mapping, vertexDeclaredUniforms, statement1)) {                  
                     storeVertexUniform(mapping.getRightVariable());
                 }
@@ -732,7 +733,7 @@ public class ShaderNodeLoaderDelegate {
             if (worldParam == null) {
                 throw new MatParseException("Could not find a World Parameter named " + right.getName(), statement1);
             }
-            if (shaderNode.getDefinition().getType() == Shader.ShaderType.Vertex) {
+            if (shaderNode.getDefinition().getType() == ShaderType.Vertex) {
                 if (updateRightFromUniforms(worldParam, mapping, vertexDeclaredUniforms)) {                    
                     storeVertexUniform(mapping.getRightVariable());
                 }
@@ -866,7 +867,7 @@ public class ShaderNodeLoaderDelegate {
      */
     public void storeGlobal(ShaderNodeVariable var, Statement statement1) throws IOException {
         var.setShaderOutput(true);
-        if (shaderNode.getDefinition().getType() == Shader.ShaderType.Vertex) {
+        if (shaderNode.getDefinition().getType() == ShaderType.Vertex) {
             ShaderNodeVariable global = techniqueDef.getShaderGenerationInfo().getVertexGlobal();
             if (global != null) {
 //                global.setCondition(mergeConditions(global.getCondition(), var.getCondition(), "||"));
@@ -877,7 +878,7 @@ public class ShaderNodeLoaderDelegate {
             } else {
                 techniqueDef.getShaderGenerationInfo().setVertexGlobal(var);
             }
-        } else if (shaderNode.getDefinition().getType() == Shader.ShaderType.Fragment) {
+        } else if (shaderNode.getDefinition().getType() == ShaderType.Fragment) {
             storeVariable(var, techniqueDef.getShaderGenerationInfo().getFragmentGlobals());
         }
     }
@@ -987,7 +988,7 @@ public class ShaderNodeLoaderDelegate {
      */
     public void storeVaryings(ShaderNode node, ShaderNodeVariable variable) {
         variable.setShaderOutput(true);
-        if (node.getDefinition().getType() == Shader.ShaderType.Vertex && shaderNode.getDefinition().getType() == Shader.ShaderType.Fragment) {
+        if (node.getDefinition().getType() == ShaderType.Vertex && shaderNode.getDefinition().getType() == ShaderType.Fragment) {
             DeclaredVariable dv = varyings.get(variable.getName());
             if (dv == null) {
                 techniqueDef.getShaderGenerationInfo().getVaryings().add(variable);

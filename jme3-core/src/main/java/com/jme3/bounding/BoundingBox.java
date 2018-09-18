@@ -40,6 +40,14 @@ import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.shape.Plane;
+import com.jme3.math.shape.Ray;
+import com.jme3.math.shape.Triangle;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.utility.Transform;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial;
 import com.jme3.util.TempVars;
@@ -634,7 +642,7 @@ public class BoundingBox extends BoundingVolume {
      * determines if this bounding box intersects with a given ray object. If an
      * intersection has occurred, true is returned, otherwise false is returned.
      * 
-     * @see BoundingVolume#intersects(com.jme3.math.Ray) 
+     * @see BoundingVolume#intersects(com.jme3.math.shape.Ray) 
      */
     public boolean intersects(Ray ray) {
         assert Vector3f.isValidVector(center);
@@ -706,7 +714,7 @@ public class BoundingBox extends BoundingVolume {
     }
 
     /**
-     * @see com.jme.bounding.BoundingVolume#intersectsWhere(com.jme.math.Ray)
+     * @see com.jme.bounding.BoundingVolume#intersectsWhere(com.jme3.math.shape.jme.math.Ray)
      */
     private int collideWithRay(Ray ray, CollisionResults results) {
         TempVars vars = TempVars.get();

@@ -29,9 +29,12 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jme3.math;
+package com.jme3.math.shape;
 
 import com.jme3.export.*;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Vector3f;
+
 import java.io.IOException;
 import java.util.logging.Logger;
 

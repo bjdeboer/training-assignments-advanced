@@ -31,10 +31,10 @@
  */
 package com.jme3.util;
 
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.FastMath;
-import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.ColorRGBA;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.*;
 import com.jme3.scene.VertexBuffer.Format;
 import com.jme3.scene.VertexBuffer.Type;

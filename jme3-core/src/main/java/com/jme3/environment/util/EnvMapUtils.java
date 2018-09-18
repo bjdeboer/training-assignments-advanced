@@ -33,9 +33,6 @@ package com.jme3.environment.util;
 
 import com.jme3.asset.AssetManager;
 import com.jme3.material.Material;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Vector3f;
-import com.jme3.math.Vector4f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Node;
 import com.jme3.scene.shape.Quad;
@@ -46,11 +43,17 @@ import com.jme3.texture.TextureCubeMap;
 import com.jme3.texture.image.ColorSpace;
 import com.jme3.ui.Picture;
 import com.jme3.util.BufferUtils;
+
+import static com.jme3.math.utility.FastMath.*;
+
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import static com.jme3.math.FastMath.*;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector2f;
+
+import com.jme3.math.vector.ColorRGBA;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
 import com.jme3.util.TempVars;
 
 /**
@@ -575,7 +578,7 @@ public class EnvMapUtils {
     }
 
     /**
-     * {@link EnvMapUtils#generateIrradianceMap(com.jme3.math.Vector3f[], com.jme3.texture.TextureCubeMap, int, com.jme3.utils.EnvMapUtils.FixSeamsMethod)
+     * {@link EnvMapUtils#generateIrradianceMap(com.jme3.math.vector.Vector3f[], com.jme3.texture.TextureCubeMap, int, com.jme3.utils.EnvMapUtils.FixSeamsMethod)
      * }
      *
      * @param shCoeffs the spherical harmonics coefficients to use

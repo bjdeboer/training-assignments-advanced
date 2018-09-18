@@ -35,7 +35,7 @@ import com.jme3.asset.AssetKey;
 import com.jme3.asset.AssetManager;
 import com.jme3.material.MatParamTexture;
 import com.jme3.material.Material;
-import com.jme3.math.Vector2f;
+import com.jme3.math.vector.Vector2f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.Spatial;

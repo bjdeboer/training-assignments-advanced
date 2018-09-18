@@ -31,8 +31,8 @@
  */
 package com.jme3.collision.bih;
 
-import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Vector3f;
 
 public final class BIHTriangle {
 

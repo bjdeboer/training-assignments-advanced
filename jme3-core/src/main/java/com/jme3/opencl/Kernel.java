@@ -32,6 +32,11 @@
 package com.jme3.opencl;
 
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector4f;
 import com.jme3.util.TempVars;
 import java.nio.ByteBuffer;
 import java.util.Arrays;

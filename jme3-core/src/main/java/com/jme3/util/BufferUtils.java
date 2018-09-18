@@ -45,11 +45,11 @@ import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 import java.util.concurrent.ConcurrentHashMap;
 
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
-import com.jme3.math.Vector4f;
+import com.jme3.math.vector.ColorRGBA;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
 
 /**
  * <code>BufferUtils</code> is a helper class for generating nio buffers from

@@ -41,6 +41,11 @@ import com.jme3.light.LightList;
 import com.jme3.material.MatParamOverride;
 import com.jme3.material.Material;
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.utility.Transform;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.ViewPort;
@@ -531,7 +536,7 @@ public abstract class Spatial implements Savable, Cloneable, Collidable, Cloneab
      * <code>lookAt</code> is a convenience method for auto-setting the local
      * rotation based on a position in world space and an up vector. It computes the rotation
      * to transform the z-axis to point onto 'position' and the y-axis to 'up'.
-     * Unlike {@link Quaternion#lookAt(com.jme3.math.Vector3f, com.jme3.math.Vector3f) }
+     * Unlike {@link Quaternion#lookAt(com.jme3.math.vector.Vector3f, com.jme3.math.vector.Vector3f) }
      * this method takes a world position to look at and not a relative direction.
      *
      * Note : 28/01/2013 this method has been fixed as it was not taking into account the parent rotation.

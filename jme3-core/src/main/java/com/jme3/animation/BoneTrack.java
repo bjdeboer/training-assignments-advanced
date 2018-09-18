@@ -32,8 +32,8 @@
 package com.jme3.animation;
 
 import com.jme3.export.*;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.util.TempVars;
 import java.io.IOException;
 import java.util.BitSet;

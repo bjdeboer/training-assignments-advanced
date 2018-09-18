@@ -31,10 +31,10 @@
  */
 package com.jme3.animation;
 
-import com.jme3.math.FastMath;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Transform;
-import com.jme3.math.Vector3f;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.utility.Transform;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector3f;
 
 /**
  * A convenience class to easily setup a spatial keyframed animation

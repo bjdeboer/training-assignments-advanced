@@ -34,7 +34,7 @@ package com.jme3.material.logic;
 import com.jme3.asset.AssetManager;
 import com.jme3.light.*;
 import com.jme3.material.TechniqueDef;
-import com.jme3.math.ColorRGBA;
+import com.jme3.math.vector.ColorRGBA;
 import com.jme3.renderer.Caps;
 import com.jme3.renderer.RenderManager;
 import com.jme3.renderer.Renderer;

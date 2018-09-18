@@ -31,7 +31,7 @@
  */
 package com.jme3.renderer;
 
-import com.jme3.math.ColorRGBA;
+import com.jme3.math.vector.ColorRGBA;
 import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.queue.RenderQueue;
 import com.jme3.scene.Geometry;
@@ -51,7 +51,7 @@ import java.util.List;
  * By default, a view port does not clear the framebuffer, but it can be
  * set to {@link #setClearFlags(boolean, boolean, boolean) clear the framebuffer}.
  * The background color which the color buffer is cleared to can be specified 
- * via the {@link #setBackgroundColor(com.jme3.math.ColorRGBA)} method.
+ * via the {@link #setBackgroundColor(com.jme3.math.vector.ColorRGBA)} method.
  * <p>
  * A ViewPort has a list of {@link SceneProcessor}s which can
  * control how the ViewPort is rendered by the {@link RenderManager}.
@@ -364,7 +364,7 @@ public class ViewPort {
      * 
      * @return the background color of this ViewPort
      * 
-     * @see #setBackgroundColor(com.jme3.math.ColorRGBA) 
+     * @see #setBackgroundColor(com.jme3.math.vector.ColorRGBA) 
      */
     public ColorRGBA getBackgroundColor(){
         return backColor;

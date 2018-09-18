@@ -31,8 +31,8 @@
  */
 package com.jme3.collision;
 
-import com.jme3.math.Triangle;
-import com.jme3.math.Vector3f;
+import com.jme3.math.shape.Triangle;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Mesh;
 

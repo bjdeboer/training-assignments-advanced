@@ -36,8 +36,8 @@ import java.util.EnumSet;
 
 import com.jme3.light.LightList;
 import com.jme3.material.RenderState;
-import com.jme3.math.ColorRGBA;
-import com.jme3.math.Matrix4f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.vector.ColorRGBA;
 import com.jme3.renderer.Caps;
 import com.jme3.renderer.Limits;
 import com.jme3.renderer.Renderer;

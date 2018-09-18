@@ -32,7 +32,7 @@
 package com.jme3.scene;
 
 import com.jme3.export.*;
-import com.jme3.math.FastMath;
+import com.jme3.math.utility.FastMath;
 import com.jme3.renderer.Renderer;
 import com.jme3.util.BufferUtils;
 import com.jme3.util.NativeObject;

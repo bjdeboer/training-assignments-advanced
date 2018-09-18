@@ -35,7 +35,7 @@ import com.jme3.effect.Particle;
 import com.jme3.effect.ParticleEmitter;
 import com.jme3.effect.shapes.EmitterShape;
 import com.jme3.export.Savable;
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.util.clone.JmeCloneable;
 
 /**
@@ -80,7 +80,7 @@ public interface ParticleInfluencer extends Savable, Cloneable, JmeCloneable {
      *        Set the variation by which the initial velocity
      *        of the particle is determined. <code>variation</code> should be a value
      *        from 0 to 1, where 0 means particles are to spawn with exactly
-     *        the velocity given in {@link ParticleEmitter#setInitialVelocity(com.jme3.math.Vector3f) },
+     *        the velocity given in {@link ParticleEmitter#setInitialVelocity(com.jme3.math.vector.Vector3f) },
      *        and 1 means particles are to spawn with a completely random velocity.
      */
     void setVelocityVariation(float variation);

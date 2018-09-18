@@ -35,6 +35,13 @@ import com.jme3.bounding.BoundingBox;
 import com.jme3.bounding.BoundingVolume;
 import com.jme3.export.*;
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.shape.Plane;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
 import com.jme3.util.TempVars;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -704,7 +711,7 @@ public class Camera implements Savable, Cloneable {
      * @param up        the up axis of the camera.
      * @param direction the direction the camera is facing.
      * 
-     * @see Camera#setAxes(com.jme3.math.Quaternion) 
+     * @see Camera#setAxes(com.jme3.math.vector.Quaternion) 
      */
     public void setAxes(Vector3f left, Vector3f up, Vector3f direction) {
         this.rotation.fromAxes(left, up, direction);
@@ -793,8 +800,8 @@ public class Camera implements Savable, Cloneable {
      * @param left      the left axis of the camera.
      * @param up        the up axis of the camera.
      * @param direction the facing of the camera.
-     * @see Camera#setFrame(com.jme3.math.Vector3f,
-     *      com.jme3.math.Vector3f, com.jme3.math.Vector3f, com.jme3.math.Vector3f)
+     * @see Camera#setFrame(com.jme3.math.vector.Vector3f,
+     *      com.jme3.math.vector.Vector3f, com.jme3.math.vector.Vector3f, com.jme3.math.vector.Vector3f)
      */
     public void setFrame(Vector3f location, Vector3f left, Vector3f up,
             Vector3f direction) {

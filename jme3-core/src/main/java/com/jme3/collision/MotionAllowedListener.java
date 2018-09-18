@@ -32,7 +32,7 @@
 
 package com.jme3.collision;
 
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.Vector3f;
 
 public interface MotionAllowedListener {
 

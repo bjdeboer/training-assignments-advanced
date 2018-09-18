@@ -29,9 +29,13 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jme3.math;
+package com.jme3.math.utility;
 
-import com.jme3.math.Spline.SplineType;
+import com.jme3.math.shape.Spline;
+import com.jme3.math.shape.Spline.SplineType;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
+
 import java.util.List;
 
 /**

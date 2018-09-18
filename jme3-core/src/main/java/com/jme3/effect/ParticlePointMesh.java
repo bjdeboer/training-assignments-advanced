@@ -31,7 +31,7 @@
  */
 package com.jme3.effect;
 
-import com.jme3.math.Matrix3f;
+import com.jme3.math.matrix.Matrix3f;
 import com.jme3.renderer.Camera;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.scene.VertexBuffer.Format;

@@ -32,7 +32,8 @@
 package com.jme3.animation;
 
 import com.jme3.export.*;
-import com.jme3.math.Quaternion;
+import com.jme3.math.vector.Quaternion;
+
 import java.io.IOException;
 
 /**

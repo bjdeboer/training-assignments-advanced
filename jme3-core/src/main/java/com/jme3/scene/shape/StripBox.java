@@ -32,7 +32,7 @@
 // $Id: Box.java 4131 2009-03-19 20:15:28Z blaine.dev $
 package com.jme3.scene.shape;
 
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.VertexBuffer.Type;
 import com.jme3.util.BufferUtils;
 import java.nio.FloatBuffer;
@@ -109,7 +109,7 @@ public class StripBox extends AbstractBox {
      * <p>
      * The minimum and maximum point are provided, these two points define the
      * shape and size of the box but not it’s orientation or position. You should
-     * use the {@link com.jme3.scene.Spatial#setLocalTranslation(com.jme3.math.Vector3f) } and {@link com.jme3.scene.Spatial#setLocalRotation(com.jme3.math.Quaternion) }
+     * use the {@link com.jme3.scene.Spatial#setLocalTranslation(com.jme3.math.vector.Vector3f) } and {@link com.jme3.scene.Spatial#setLocalRotation(com.jme3.math.Quaternion) }
      * methods to define those properties.
      * 
      * @param min the minimum point that defines the box.

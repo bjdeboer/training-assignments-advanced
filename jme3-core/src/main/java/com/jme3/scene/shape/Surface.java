@@ -31,11 +31,11 @@
  */
 package com.jme3.scene.shape;
 
-import com.jme3.math.CurveAndSurfaceMath;
-import com.jme3.math.FastMath;
-import com.jme3.math.Spline.SplineType;
-import com.jme3.math.Vector3f;
-import com.jme3.math.Vector4f;
+import com.jme3.math.shape.Spline.SplineType;
+import com.jme3.math.utility.CurveAndSurfaceMath;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer;
 import com.jme3.util.BufferUtils;

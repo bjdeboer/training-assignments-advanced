@@ -33,6 +33,11 @@ package com.jme3.animation;
 
 import com.jme3.export.*;
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.utility.Transform;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.Node;
 import com.jme3.util.TempVars;
 import com.jme3.util.clone.JmeCloneable;
@@ -113,7 +118,7 @@ public final class Bone implements Savable, JmeCloneable {
     
     /**
      * Used to handle blending from one animation to another.
-     * See {@link #blendAnimTransforms(com.jme3.math.Vector3f, com.jme3.math.Quaternion, com.jme3.math.Vector3f, float)}
+     * See {@link #blendAnimTransforms(com.jme3.math.vector.Vector3f, com.jme3.math.vector.Quaternion, com.jme3.math.vector.Vector3f, float)}
      * on how this variable is used.
      */
     private transient float currentWeightSum = -1;
@@ -617,7 +622,7 @@ public final class Bone implements Savable, JmeCloneable {
      * 
      * @param translation -
      * @param rotation -
-     * @deprecated use {@link #setUserTransformsInModelSpace(com.jme3.math.Vector3f, com.jme3.math.Quaternion) }
+     * @deprecated use {@link #setUserTransformsInModelSpace(com.jme3.math.vector.Vector3f, com.jme3.math.vector.Quaternion) }
      */
     @Deprecated
     public void setUserTransformsWorld(Vector3f translation, Quaternion rotation) {

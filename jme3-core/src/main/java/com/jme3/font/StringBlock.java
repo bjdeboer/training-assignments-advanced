@@ -33,7 +33,7 @@ package com.jme3.font;
 
 import com.jme3.font.BitmapFont.Align;
 import com.jme3.font.BitmapFont.VAlign;
-import com.jme3.math.ColorRGBA;
+import com.jme3.math.vector.ColorRGBA;
 
 /**
  * Defines a String that is to be drawn in one block that can be constrained by a {@link Rectangle}. Also holds

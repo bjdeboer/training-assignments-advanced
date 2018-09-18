@@ -33,10 +33,10 @@ package com.jme3.input;
 
 import com.jme3.collision.MotionAllowedListener;
 import com.jme3.input.controls.*;
-import com.jme3.math.FastMath;
-import com.jme3.math.Matrix3f;
-import com.jme3.math.Quaternion;
-import com.jme3.math.Vector3f;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.renderer.Camera;
 
 /**

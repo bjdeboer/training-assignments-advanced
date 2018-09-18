@@ -31,9 +31,9 @@
  */
 package com.jme3.bounding;
 
-import com.jme3.math.FastMath;
-import com.jme3.math.Plane;
-import com.jme3.math.Vector3f;
+import com.jme3.math.shape.Plane;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.util.TempVars;
 import static java.lang.Math.max;
 import static java.lang.Math.min;

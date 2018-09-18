@@ -35,7 +35,7 @@ import com.jme3.asset.AssetManager;
 import com.jme3.asset.TextureKey;
 import com.jme3.bounding.BoundingSphere;
 import com.jme3.material.Material;
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.renderer.queue.RenderQueue.Bucket;
 import com.jme3.scene.Geometry;
 import com.jme3.scene.Spatial;
@@ -103,7 +103,7 @@ public class SkyFactory {
      * </ul>
      * @return a new spatial representing the sky, ready to be attached to the
      * scene graph
-     * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, com.jme3.texture.Texture, com.jme3.math.Vector3f, com.jme3.util.SkyFactory.EnvMapType)}
+     * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, com.jme3.texture.Texture, com.jme3.math.vector.Vector3f, com.jme3.util.SkyFactory.EnvMapType)}
      */
     @Deprecated 
     public static Spatial createSky(AssetManager assetManager, Texture texture,
@@ -152,7 +152,7 @@ public class SkyFactory {
      * frustrum
      * @return a new spatial representing the sky, ready to be attached to the
      * scene graph
-     * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, com.jme3.texture.Texture, com.jme3.math.Vector3f, com.jme3.util.SkyFactory.EnvMapType, int)}
+     * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, com.jme3.texture.Texture, com.jme3.math.vector.Vector3f, com.jme3.util.SkyFactory.EnvMapType, int)}
      */
     @Deprecated
     public static Spatial createSky(AssetManager assetManager, Texture texture,
@@ -231,7 +231,7 @@ public class SkyFactory {
     * </ul> 
     * @return a new spatial representing the sky, ready to be attached to the
     * scene graph
-    * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, com.jme3.texture.Texture, com.jme3.math.Vector3f, com.jme3.util.SkyFactory.EnvMapType)}
+    * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, com.jme3.texture.Texture, com.jme3.math.vector.Vector3f, com.jme3.util.SkyFactory.EnvMapType)}
     */  
     @Deprecated
     public static Spatial createSky(AssetManager assetManager, Texture texture, boolean sphereMap) {
@@ -254,7 +254,7 @@ public class SkyFactory {
     * </ul> 
     * @return a new spatial representing the sky, ready to be attached to the
     * scene graph
-    * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, java.lang.String, com.jme3.math.Vector3f, com.jme3.util.SkyFactory.EnvMapType)}
+    * @deprecated use {@link SkyFactory#createSky(com.jme3.asset.AssetManager, java.lang.String, com.jme3.math.vector.Vector3f, com.jme3.util.SkyFactory.EnvMapType)}
     */  
     @Deprecated
     public static Spatial createSky(AssetManager assetManager, String textureName, boolean sphereMap) {

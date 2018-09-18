@@ -32,6 +32,13 @@
 package com.jme3.shader;
 
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.vector.ColorRGBA;
+import com.jme3.math.vector.Quaternion;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
 import com.jme3.util.BufferUtils;
 import java.nio.Buffer;
 import java.nio.FloatBuffer;

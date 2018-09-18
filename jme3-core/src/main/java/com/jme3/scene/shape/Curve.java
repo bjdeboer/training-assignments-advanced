@@ -31,8 +31,8 @@
  */
 package com.jme3.scene.shape;
 
-import com.jme3.math.Spline;
-import com.jme3.math.Vector3f;
+import com.jme3.math.shape.Spline;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer;
 import java.util.Iterator;

@@ -38,7 +38,7 @@ import com.jme3.audio.AudioContext;
 import com.jme3.audio.AudioRenderer;
 import com.jme3.audio.Listener;
 import com.jme3.input.*;
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.profile.AppProfiler;
 import com.jme3.profile.AppStep;
 import com.jme3.renderer.Camera;

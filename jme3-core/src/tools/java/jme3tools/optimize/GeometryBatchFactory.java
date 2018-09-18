@@ -1,9 +1,9 @@
 package jme3tools.optimize;
 
 import com.jme3.material.Material;
-import com.jme3.math.Matrix4f;
-import com.jme3.math.Transform;
-import com.jme3.math.Vector3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.utility.Transform;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.*;
 import com.jme3.scene.Mesh.Mode;
 import com.jme3.scene.VertexBuffer.Format;

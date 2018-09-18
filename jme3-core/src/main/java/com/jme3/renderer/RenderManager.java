@@ -41,6 +41,7 @@ import com.jme3.material.RenderState;
 import com.jme3.material.Technique;
 import com.jme3.material.TechniqueDef;
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix4f;
 import com.jme3.post.SceneProcessor;
 import com.jme3.profile.AppProfiler;
 import com.jme3.profile.AppStep;

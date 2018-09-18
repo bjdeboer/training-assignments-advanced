@@ -33,6 +33,11 @@ package com.jme3.shader;
 
 import com.jme3.material.Material;
 import com.jme3.math.*;
+import com.jme3.math.matrix.Matrix3f;
+import com.jme3.math.matrix.Matrix4f;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
+import com.jme3.math.vector.Vector4f;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
 import com.jme3.system.Timer;

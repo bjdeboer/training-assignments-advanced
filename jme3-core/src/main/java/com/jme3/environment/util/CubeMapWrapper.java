@@ -31,11 +31,12 @@
  */
 package com.jme3.environment.util;
 
+import static com.jme3.math.utility.FastMath.pow;
+
 import com.jme3.environment.util.EnvMapUtils;
-import com.jme3.math.ColorRGBA;
-import static com.jme3.math.FastMath.pow;
-import com.jme3.math.Vector2f;
-import com.jme3.math.Vector3f;
+import com.jme3.math.vector.ColorRGBA;
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.texture.Image;
 import com.jme3.texture.TextureCubeMap;
 import com.jme3.texture.image.DefaultImageRaster;

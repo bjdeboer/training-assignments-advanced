@@ -29,9 +29,12 @@
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package com.jme3.math;
+package com.jme3.math.utility;
 
 import java.util.Random;
+
+import com.jme3.math.vector.Vector2f;
+import com.jme3.math.vector.Vector3f;
 
 /**
  * <code>FastMath</code> provides 'fast' math approximations and float equivalents of Math

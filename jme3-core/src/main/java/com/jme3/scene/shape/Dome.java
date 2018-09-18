@@ -36,8 +36,8 @@ import com.jme3.export.InputCapsule;
 import com.jme3.export.JmeExporter;
 import com.jme3.export.JmeImporter;
 import com.jme3.export.OutputCapsule;
-import com.jme3.math.FastMath;
-import com.jme3.math.Vector3f;
+import com.jme3.math.utility.FastMath;
+import com.jme3.math.vector.Vector3f;
 import com.jme3.scene.Mesh;
 import com.jme3.scene.VertexBuffer.Type;
 import com.jme3.util.BufferUtils;
@@ -80,7 +80,7 @@ public class Dome extends Mesh {
      *            Influences how round the base of the dome is.
      * @param radius
      *            Radius of the dome.
-     * @see #Dome(com.jme.math.Vector3f, int, int, float)
+     * @see #Dome(com.jme3.math.vector.jme.math.Vector3f, int, int, float)
      */
     public Dome(int planes, int radialSamples, float radius) {
         this(new Vector3f(0, 0, 0), planes, radialSamples, radius);

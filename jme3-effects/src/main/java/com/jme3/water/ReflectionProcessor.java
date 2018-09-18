@@ -31,7 +31,7 @@
  */
 package com.jme3.water;
 
-import com.jme3.math.Plane;
+import com.jme3.math.shape.Plane;
 import com.jme3.post.SceneProcessor;
 import com.jme3.renderer.Camera;
 import com.jme3.renderer.RenderManager;
